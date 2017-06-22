@@ -1,0 +1,8 @@
+//RIGHT ARM
+push
+move 100 125 0
+rotate x 90
+box 0 0 40 40 100 80
+
+display
+save robot.png

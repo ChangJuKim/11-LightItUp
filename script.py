@@ -124,6 +124,7 @@ def run(filename):
         stack = [ [x[:] for x in tmp] ]
         screen = new_screen()
         zb = new_zbuffer()
+        clear_zbuffer(zb)
         tmp = []
 
         #Set symbol values for multiple frames

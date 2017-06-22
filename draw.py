@@ -4,6 +4,11 @@ from math import *
 from gmath import *
 from sys import maxint
 
+#Just made a wrapper to preserve function.
+def scanline_convert(polygons, i, screen, zbuffer):
+    scanline(polygons, i, screen, [0, 255, 255], zbuffer)
+    
+
 def add_polygon( polygons, x0, y0, z0, x1, y1, z1, x2, y2, z2 ):
     add_point(polygons, x0, y0, z0);
     add_point(polygons, x1, y1, z1);
@@ -23,7 +28,7 @@ def draw_polygons( matrix, screen, zbuffer, color ):
 
         if normal[2] > 0:
             scanline(matrix, point, screen, color, zbuffer)
-            draw_line( int(matrix[point][0]),
+            """draw_line( int(matrix[point][0]),
                        int(matrix[point][1]),
                        
                        zbuffer[int(matrix[point][0])][int(matrix[point][1])], 
@@ -51,7 +56,8 @@ def draw_polygons( matrix, screen, zbuffer, color ):
                        int(matrix[point+2][1]),
                        zbuffer[int(matrix[point+2][0])][int(matrix[point+2][1])], 
                        #matrix[point+2][2],
-                       screen, zbuffer, color)    
+                       screen, zbuffer, color)
+            """
         point+= 3
 
 #given the bottom, mid and top values of y, get the matching x for each
@@ -79,7 +85,6 @@ def findMatchingx(matrix, point, By, My, Ty):
     return ans
 
 def scanline(matrix, point, screen, color, zbuffer):
-    color = [0, 255, 255]
     increment_constant = 1
     x1 = matrix[point][0]
     y1 = matrix[point][1]
@@ -414,8 +419,7 @@ def draw_line( x0, y0, z0, x1, y1, z1, screen, zbuffer, color ):
 
     while ( loop_start < loop_end ):
         #print [z0, z, z1]
-        if z > zbuffer[x][y]:
-            plot( screen, zbuffer, color, x, y, z )
+        plot( screen, zbuffer, color, x, y, z )
         if ( (wide and ((A > 0 and d > 0) or (A < 0 and d < 0))) or
              (tall and ((A > 0 and d < 0) or (A < 0 and d > 0 )))):
             x+= dx_northeast
